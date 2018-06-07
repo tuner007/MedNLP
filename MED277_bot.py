@@ -246,7 +246,14 @@ def cos_matrix_multiplication(matrix, vector):
 def get_most_similar_topics(embd, embeddings, all_topics, num_wrd=10):
     sim_top = []
     cos_sim = cos_matrix_multiplication(np.array(embeddings), embd)
-    closest_match = cos_sim.argsort()[-num_wrd:][::-1]
+    #closest_match = cos_sim.argsort()[-num_wrd:][::-1] ## This sorts all matches in order
+    
+    ## This just takes 80% and above similar matches
+    idx = list(np.where(cos_sim > 0.9)[0])
+    val = list(cos_sim[np.where(cos_sim > 0.9)])
+    closest_match, list2 = (list(t) for t in zip(*sorted(zip(idx, val), reverse=True)))
+    closest_match = np.array(closest_match)
+    
     for i in range(0, closest_match.shape[0]):
         sim_top.append(all_topics[closest_match[i]])
     return sim_top
