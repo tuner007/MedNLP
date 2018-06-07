@@ -4,8 +4,12 @@ This repository contains code and analysi for ''Disease Identification and NLP a
 The project is aimed at building a system that leverages huge healthcare information available as electronic data and learn a disease identification model. The project also focusses on creating a Human Computer Interaction component in the form of a NLP chatbot.
 
 ### Files
-* MED277_bot.ipynb - A jupyter notebook containing code for NLP chatbot
-* MED277_bot.py - A pyton script for initializing and running the chatbot. Contains same code as MED277_bot.ipynb
+* MED277_bot.ipynb - A jupyter notebook containing code for NLP chatbot.
+* MED277_bot.py - A pyton script for initializing and running the chatbot. Contains same code as MED277_bot.ipynb.
+* BackEnd.py - A python script that will preprocess the given Discharge summary as an input and will run the model and then return the list of diseases that were found withing the given discharge summary.
+* common_diseases.npy - A numpy file containing the list of diseases that we used for labeling purposes.
+* words.npy - A numpy file containing the list of all useful words extracted from all the discharge summaries.
+* model_weights.h10 - A file containing all the pretrained weights for the model.
 
 #### Running the chatbot [Complete Data]
 The chatbot uses the data from MIMIC-III discharge summaries to train and answer questions. The proper data path of MIMIC-III dataset **NOTEEVENTS.csv.gz** should be set in *base_path*. Then navigate to the path of **MED277_bot.ipynb** run the jupyter notebook using the following command:
@@ -25,6 +29,8 @@ Just edit the *base_path* inside ***MED277_bot.py*** file **load_data()** functi
 ```python
 python MED277_bot.py
 ```
+#### Training Neural Network Model [Small Subset Data]
+We have saved small subset of training sentences each of length 15 integers in a file named training_sentences.npy containing one or more diseases along side a small corresponding label set which contains the binary vectors of length 15. The training sentences should be fed as the input to the model and then the label set should be used to calculate the loss.
 
 ### Sample questions for chatbot
 - What is my date of birth?
@@ -54,3 +60,4 @@ python MED277_bot.py
 - sklearn
 - nltk
 - numpy
+- Keras
