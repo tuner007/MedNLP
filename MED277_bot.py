@@ -16,6 +16,7 @@ from sklearn import decomposition
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from sklearn.decomposition import PCA
 from numpy.linalg import norm
+from BackEnd import predict
 
 
 # In[60]:
@@ -398,11 +399,26 @@ def get_answer(topic, topic_map, embedding_short, all_topics, data_set, vocab_ma
 # In[83]:
 
 
+'''This function checks if the user input text is an instruction allowed in chatbot or not'''
 def is_instruction_option(str_arg):
-    if str_arg == "exit" or str_arg == "summary" or str_arg == "reveal":
+    if str_arg == "exit" or str_arg == "summary" or str_arg == "reveal" or str_arg == "predict":
         return True
     else:
         return False
+
+def print_bot():
+	print(r"          _ _ _")
+	print(r"         | o o |")
+	print(r"        \|  =  |/")
+	print(r"         -------")
+	print(r"         |||||||")
+	print(r"         //   \\")
+	
+def print_caption():
+	print(r"	||\\   ||  ||       ||= =||")
+	print(r"	|| \\  ||  ||       ||= =||")
+	print(r"	||  \\ ||  ||       ||")
+	print(r"	||   \\||  ||_ _ _  ||")
 
 
 # In[ ]:
@@ -428,6 +444,8 @@ if __name__ == "__main__":
     pca = PCA(n_components=10)
     embedding_short = pca.fit_transform(embeddings)
     
+    print_caption()
+    print_bot()
     print("Bot:> I am online!")
     print("Bot:> Type \"exit\" to switch to end a patient's session")
     print("Bot:> Type \"summary\" to view patient's discharge summary")
@@ -459,6 +477,9 @@ if __name__ == "__main__":
                     print(df_text[pid])
                 elif ques == "reveal":
                     print(topic_mapping, topic_mapping.keys())
+                elif ques == "predict":
+                    _,_,pred_disease = predict(discharge=[df_text[pid]])
+                    print("Bot:> ",list(set(pred_disease)))
                 continue
                 
             ## Extract Question topic
@@ -479,4 +500,3 @@ if __name__ == "__main__":
                         print("Bot:> ",ans)
                     else:
                         print("Bot:> Sorry but, I have no information on this topic!")
-
