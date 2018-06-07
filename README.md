@@ -12,3 +12,24 @@ The chatbot uses the data from MIMIC-III discharge summaries to train and answer
 ```python
 python MED277_bot.py
 ```
+
+### Sample questions for chatbot
+- What is my date of birth?
+- What is my admission date?
+- When was I discharged?
+- What is my gender?
+- What are the services I had?
+- Do I have allergy?
+- Who was my attending?
+- Am I married?
+- What is my social history?
+- How can I make an appointment?
+- Do I need to visit the clinic?
+- How was my MRI?
+- What are the medication I should take?
+- How to take the steroid?
+- What do I do if I have seizures?
+- Is my vision blurry?
+- Is something wrong with my brain?
+- Do I have a cold?
+- Do I have dysphagia?
