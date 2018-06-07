@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[59]:
+# In[1]:
 
 
 import pandas as pd
@@ -18,7 +18,7 @@ from sklearn.decomposition import PCA
 from numpy.linalg import norm
 
 
-# In[60]:
+# In[2]:
 
 
 def load_data():
@@ -29,7 +29,6 @@ def load_data():
     ## Loading data frames from CSV file
     #df = pd.read_csv(data_file, compression='gzip')
     #df = df[:10000]
-    #joblib.dump(df,base_path+'data10.pkl')
     
     ## loading data frames from PKL memory
     df1 =  joblib.load(base_path+'data10.pkl')
@@ -43,7 +42,7 @@ def load_data():
 
 # ## EXTRACT ALL THE TOPICS
 
-# In[61]:
+# In[3]:
 
 
 '''Method that processes the entire document string'''
@@ -54,7 +53,7 @@ def process_text(txt):
     return txt1
 
 
-# In[62]:
+# In[4]:
 
 
 '''Method that processes the document string not considering separate lines'''
@@ -68,7 +67,7 @@ def process(txt):
     return wrds
 
 
-# In[63]:
+# In[5]:
 
 
 '''Method that processes raw string and gets a processes list containing lines'''
@@ -81,7 +80,7 @@ def get_processed_sentences(snt_txt):
     return snt_list
 
 
-# In[64]:
+# In[112]:
 
 
 '''This method extracts topic from sentence'''
@@ -104,7 +103,7 @@ def extract_topic(str_arg, num_topics = 1, num_top_words = 3):
         return None
 
 
-# In[65]:
+# In[7]:
 
 
 '''This method extracts topics of each sentence and returns a list'''
@@ -124,7 +123,7 @@ def extract_topics_all(doc_string):
     return res
 
 
-# In[66]:
+# In[8]:
 
 
 '''This function takes a dataframe and returns all the topics in the entire corpus'''
@@ -141,7 +140,7 @@ def extract_corpus_topics(arg_df):
 
 # ## GET A VECTORIZED REPRESENTATION OF ALL THE TOPICS
 
-# In[67]:
+# In[9]:
 
 
 '''data_set = words list per document.
@@ -166,7 +165,7 @@ def get_vocab_wrd_map(df_text):
     return data_set, vocabulary, _vocab
 
 
-# In[68]:
+# In[10]:
 
 
 '''vocab = return sorted list of most common words in vocabulary'''
@@ -176,7 +175,7 @@ def get_common_vocab(num_arg, vocab):
     return vocab
 
 
-# In[69]:
+# In[11]:
 
 
 '''Convert vocabulary and most common words to map for faster access'''
@@ -192,7 +191,7 @@ def get_vocab_map(vocabulary, vocab):
     return vocabulary_map, vocab_map
 
 
-# In[70]:
+# In[12]:
 
 
 def get_embedding(word, data_set, vocab_map, wdw_size):
@@ -212,7 +211,7 @@ def get_embedding(word, data_set, vocab_map, wdw_size):
     return embedding
 
 
-# In[71]:
+# In[13]:
 
 
 def get_embedding_all(all_topics, data_set, vocab_map, wdw_size):
@@ -224,7 +223,7 @@ def get_embedding_all(all_topics, data_set, vocab_map, wdw_size):
 
 # ## Get similarity function
 
-# In[72]:
+# In[14]:
 
 
 def cos_matrix_multiplication(matrix, vector):
@@ -239,7 +238,7 @@ def cos_matrix_multiplication(matrix, vector):
     return neighbors
 
 
-# In[73]:
+# In[15]:
 
 
 def get_most_similar_topics(embd, embeddings, all_topics, num_wrd=10):
@@ -253,7 +252,7 @@ def get_most_similar_topics(embd, embeddings, all_topics, num_wrd=10):
 
 # ## Topic Modelling
 
-# In[74]:
+# In[16]:
 
 
 def get_regex_match(regex, str_arg):
@@ -264,7 +263,7 @@ def get_regex_match(regex, str_arg):
         return "Not found"
 
 
-# In[75]:
+# In[17]:
 
 
 def extract(key,str_arg):
@@ -286,7 +285,7 @@ def extract(key,str_arg):
         return "I Don't know"
 
 
-# In[76]:
+# In[18]:
 
 
 '''This method extracts topic from sentence'''
@@ -306,19 +305,16 @@ def extract_topic(str_arg, num_topics = 1, num_top_words = 3):
     return topic_words
 
 
-# In[77]:
+# In[19]:
 
 
 '''This method extracts topics in a question'''
 def extract_Q_topic(str_arg):
-    try:
-        return extract_topic(str_arg)
-    except:
-        return None
+    return extract_topic(str_arg)
     ## TODO fix later for more comprehensive results
 
 
-# In[78]:
+# In[30]:
 
 
 def get_extract_map(key_wrd):
@@ -333,7 +329,7 @@ def get_extract_map(key_wrd):
         return None
 
 
-# In[79]:
+# In[77]:
 
 
 '''Method that generates the answer for text extraction questions'''
@@ -348,7 +344,7 @@ def get_extracted_answer(topic_str, text):
     return None
 
 
-# In[80]:
+# In[22]:
 
 
 '''This method extracts topics of each sentence and returns a list'''
@@ -368,7 +364,7 @@ def get_topic_mapping(doc_string):
     return res
 
 
-# In[81]:
+# In[88]:
 
 
 def get_direct_answer(topic_str, topic_map):
@@ -381,7 +377,7 @@ def get_direct_answer(topic_str, topic_map):
     return None
 
 
-# In[82]:
+# In[106]:
 
 
 def get_answer(topic, topic_map, embedding_short, all_topics, data_set, vocab_map, pca, wdw_size=5):
@@ -395,21 +391,11 @@ def get_answer(topic, topic_map, embedding_short, all_topics, data_set, vocab_ma
     return None
 
 
-# In[83]:
-
-
-def is_instruction_option(str_arg):
-    if str_arg == "exit" or str_arg == "summary" or str_arg == "reveal":
-        return True
-    else:
-        return False
-
-
-# In[ ]:
+# In[27]:
 
 
 if __name__ == "__main__":
-    print("Loading data ...","\n")
+    print("Loading data ...")
     df_text = load_data()
     
     print("Getting Vocabulary ...")
@@ -429,54 +415,37 @@ if __name__ == "__main__":
     embedding_short = pca.fit_transform(embeddings)
     
     print("Bot:> I am online!")
-    print("Bot:> Type \"exit\" to switch to end a patient's session")
-    print("Bot:> Type \"summary\" to view patient's discharge summary")
+    pid = int(input("Bot:> What is your Patient Id ?"))
+    personal_topics = extract_topics_all(df_text[pid])
+    topic_mapping = get_topic_mapping(df_text[pid])
     while(True):
-        while(True):
-            try:
-                pid = int(input("Bot:> What is your Patient Id [0 to "+str(df_text.shape[0]-1)+"?]"))
-            except:
-                continue
-            if pid < 0 or pid > df_text.shape[0]-1:
-                print("Bot:> Patient Id out or range!")
-                continue
-            else:
-                print("Bot:> Reading Discharge Summary for Patient Id: ",pid)
-                break
-
-        personal_topics = extract_topics_all(df_text[pid])
-        topic_mapping = get_topic_mapping(df_text[pid])
+        ## Read Question
+        ques = input("Bot:> How can I help ?")
         
-        ques = "random starter"
-        while(ques != "exit"):
-            ## Read Question
-            ques = input("Bot:> How can I help ?\nPerson:>")
-            
-            ## Check if it is an instructional question
-            if is_instruction_option(ques):
-                if ques == "summary":
-                    print("Bot:> ================= Discharge Summary for Patient Id ",pid,"\n")
-                    print(df_text[pid])
-                elif ques == "reveal":
-                    print(topic_mapping, topic_mapping.keys())
-                continue
-                
-            ## Extract Question topic
-            topic_q = extract_Q_topic(ques)
-            if topic_q is None:
-                print("Bot:> I am a specialized NLP bot, please as a more specific question for me!")
-                continue
-            ans = get_extracted_answer(topic_q, df_text[pid])
+        ## Extract Question topic
+        topic_q = extract_Q_topic(ques)
+        if topic_q is None:
+            print("Bot:> Please as a more specific question. How may I help ?")
+            continue
+        ans = get_extracted_answer(topic_q, df_text[pid])
+        if ans is not None:
+            print("Bot:> ",ans)
+        else:
+            ans = get_direct_answer(topic_q, topic_mapping)
             if ans is not None:
                 print("Bot:> ",ans)
             else:
-                ans = get_direct_answer(topic_q, topic_mapping)
+                ans = get_answer(topic_q, topic_mapping, embedding_short, all_topics, data_set, vocab_map, pca, 5)
                 if ans is not None:
                     print("Bot:> ",ans)
                 else:
-                    ans = get_answer(topic_q, topic_mapping, embedding_short, all_topics, data_set, vocab_map, pca, 5)
-                    if ans is not None:
-                        print("Bot:> ",ans)
-                    else:
-                        print("Bot:> Sorry but, I have no information on this topic!")
+                    print("Bot:> Sorry but, I have no information on this topic!")
+        
+        choice_ques = input("Bot:> Do you want to change the Patient Id ? (y/n/e)")
+        if choice_ques == "y":
+            pid = int(input("Bot:> What is your Patient Id ?"))
+            personal_topics = extract_topics_all(df_text[pid])
+            topic_mapping = get_topic_mapping(df_text[pid])
+        elif choice_ques == "e":
+            break;
 
