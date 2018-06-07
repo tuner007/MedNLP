@@ -25,6 +25,8 @@ Just edit the *base_path* inside ***MED277_bot.py*** file **load_data()** functi
 ```python
 python MED277_bot.py
 ```
+#### Training Neural Network Model [Small Subset Data]
+We have saved small subset of training sentences each of length 15 integers in a file named training_sentences.npy containing one or more diseases along side a small corresponding label set which contains the binary vectors of length 15. The training sentences should be fed as the input to the model and then the label set should be used to calculate the loss.
 
 ### Sample questions for chatbot
 - What is my date of birth?
@@ -54,3 +56,4 @@ python MED277_bot.py
 - sklearn
 - nltk
 - numpy
+- Keras
