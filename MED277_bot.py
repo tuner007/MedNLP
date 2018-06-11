@@ -16,7 +16,6 @@ from sklearn import decomposition
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from sklearn.decomposition import PCA
 from numpy.linalg import norm
-from BackEnd import predict
 
 
 # In[60]:
@@ -408,7 +407,7 @@ def get_answer(topic, topic_map, embedding_short, all_topics, data_set, vocab_ma
 
 '''This function checks if the user input text is an instruction allowed in chatbot or not'''
 def is_instruction_option(str_arg):
-    if str_arg == "exit" or str_arg == "summary" or str_arg == "reveal" or str_arg == "predict":
+    if str_arg == "exit" or str_arg == "summary" or str_arg == "reveal":
         return True
     else:
         return False
@@ -484,9 +483,6 @@ if __name__ == "__main__":
                     print(df_text[pid])
                 elif ques == "reveal":
                     print(topic_mapping, topic_mapping.keys())
-                elif ques == "predict":
-                    _,_,pred_disease = predict(discharge=[df_text[pid]])
-                    print("Bot:> ",list(set(pred_disease)))
                 continue
                 
             ## Extract Question topic
